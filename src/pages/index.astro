@@ -1,12 +1,5 @@
 ---
-import { Table as OuterbaseTable } from '../components/table'
-
-// test data
-import spaceballs from '../lib/sample-data.json'
-const rows = spaceballs
-    .map((d) => ({ ...d, traits: JSON.stringify(d.traits) }))
-    .map((values) => ({ id: crypto.randomUUID(), values, originalValues: values }))
-const columns = Object.keys(rows[0].values).map((name) => ({ name }))
+import { ScrollableElement } from '../components/scrollable-element'
 ---
 
 <html lang="en" class="h-full">
@@ -14,63 +7,26 @@ const columns = Object.keys(rows[0].values).map((name) => ({ name }))
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator} />
-        <style>
-            :root {
-                /* consider this as a placeholder for a theme */
-            }
-        </style>
-        <script>
-            /* themes may also be set dynamically/programatically */
-            // document.documentElement.style.setProperty("--success-color", "lime");
-
-            addEventListener('menu-selection', console.info)
-            addEventListener('cell-updated', console.info)
-            addEventListener('row-selected', console.info)
-            addEventListener('row-added', console.info)
-            addEventListener('row-updated', console.info)
-            addEventListener('row-removed', console.info)
-            addEventListener('column-added', console.info)
-            addEventListener('column-updated', console.info)
-            addEventListener('column-removed', console.info)
-            addEventListener('column-renamed', console.info)
-            addEventListener('column-updated', console.info)
-            addEventListener('column-hidden', console.info)
-        </script>
     </head>
 
     <body class="vh-full bg-theme-page dark:bg-theme-page-dark text-theme-text dark:text-theme-text-dark">
         <main class="m-12 pb-24">
-            <h1 class="font-bold text-xl">Static</h1>
+            <!-- <h1 class="font-bold text-xl">Static</h1>
             <div class="dark:bg-black w-full">
                 <div class="relative h-52 px-8">
-                    <!-- @ts-ignore Astro doesn't seem to understand some of the params being passed -->
-                    <OuterbaseTable
-                        client:only="lit"
-                        schema={{ columns }}
-                        data={rows}
-                        keyboard-shortcuts
-                        selectable-rows
-                        outer-border
-                        blank-fill
-                    />
+                    <ScrollableElement client:only="lit"
+                        ><div class="h-[1200px] w-[2400px] !overscroll-x-none bg-yellow-50"></div></ScrollableElement
+                    >
                 </div>
-            </div>
+            </div> -->
 
             <h1 class="font-bold text-xl mt-8">SSR w/ Hydration</h1>
             <div class="bg-white dark:bg-black">
                 <div class="relative h-52 px-8">
-                    <!-- @ts-ignore Astro doesn't seem to understand some of the params being passed -->
-                    <OuterbaseTable client:load schema={{ columns }} data={rows} selectable-rows outer-border blank-fill />
-                </div>
-            </div>
-
-            <h1 class="font-bold text-xl mt-8">SSR w/o Hydration</h1>
-            <div class="bg-white dark:bg-black">
-                <div class="relative h-52 px-8">
-                    <!-- @ts-ignore Astro doesn't seem to understand some of the params being passed -->
-                    <OuterbaseTable schema={{ columns }} data={rows} non-interactive outer-border blank-fill />
+                    <ScrollableElement client:load><div class="h-[1200px] w-[2400px] bg-yellow-50"></div></ScrollableElement>
                 </div>
             </div>
         </main>
     </body>
 </html>
+../components/scrollable-element

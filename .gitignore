@@ -1,7 +1,7 @@
 # build output
 dist/
 lit-dist/
-starboard-*.tgz
+scrollable-element-*.tgz
 
 # generated types
 .astro/

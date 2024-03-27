@@ -10,7 +10,7 @@ import debounce from 'lodash-es/debounce.js'
 import { Theme } from '../../types.js'
 import { ClassifiedElement } from '../classified-element.js'
 
-@customElement('blood-sugar-scroll-magik')
+@customElement('outerbase-scrollable')
 export class ScrollableElement extends ClassifiedElement {
     static override styles = [
         ...ClassifiedElement.styles,
@@ -192,7 +192,9 @@ export class ScrollableElement extends ClassifiedElement {
         document.addEventListener('mousemove', onMouseMove)
     }
 
-    public override firstUpdated(_hangedProperties: PropertyValueMap<this>): void {
+    public override firstUpdated(changedProperties: PropertyValueMap<this>): void {
+        super.firstUpdated(changedProperties)
+
         this.scroller.value?.addEventListener('scroll', this.updateScrollerSizeAndPosition, { passive: true })
         this.scroller.value?.addEventListener('scroll', this._onScroll, { passive: true })
         this.scroller.value?.addEventListener('scrollend', this._onScroll, { passive: true })

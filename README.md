@@ -1,6 +1,4 @@
-# STARBOARD
-
-![](https://cdn.theasc.com/Spaceballs-Eagle-5.jpg)
+# scrollable-element
 
 ## Publishing to NPM
 
@@ -22,15 +20,15 @@ pnpm dev
 From Dashboard, run the following
 
 ```
-pnpm link ../path/to/starboard
+pnpm link ../path/to/scrollable-element
 ```
 
 ### `pnpm link` quirks
 
 This feature has been unreliable. Follow the following steps for the best chance of success. The following commands are in the context of Dashboard.
 
--   `pnpm remove starboard` // to ensure any other version is unreferenced
--   `pnpm link ../path/to/starboard/repo` // to ensure Dashboard is seeing local changes
+-   `pnpm remove scrollable-element` // to ensure any other version is unreferenced
+-   `pnpm link ../path/to/scrollable-element/repo` // to ensure Dashboard is seeing local changes
 
 If you suspect that your changes aren't being applied, throw in an `alert` or `debugger` and verify they are before spinning your wheels further.
 
@@ -51,15 +49,15 @@ pnpm build:lit:watch
 ```ts
 import * as React from 'react'
 import { createComponent } from '@lit/react'
-import { Table } from 'starboard'
+import { Scroller } from 'scrollable-element'
 
-export const OuterbaseTable = createComponent({
-    tagName: 'outerbase-table',
-    elementClass: Table,
+export const ScrollableElement = createComponent({
+    tagName: 'scrollable-element',
+    elementClass: Scroller,
     react: React,
 
     events: {
-        onCellUpdated: 'cell-updated' as EventName<CellUpdateEvent>,
+        onScroll: 'scroll' as ScrollEvent,
         // etc...
     },
 })
