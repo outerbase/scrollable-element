@@ -1,5 +1,11 @@
 # scrollable-element
 
+```
+# as of 03/27/2024
+[vite] dist/_astro/directive-helpers.DW4ygG2Q.js                   7.89 kB │ gzip:  3.40 kB
+[vite] dist/_astro/scrollable-element.Bpbfmm6Z.js                 37.93 kB │ gzip: 11.21 kB
+```
+
 ## Publishing to NPM
 
 -   increment the version in `package.json` to be greater-than the last version published to npm
