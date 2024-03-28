@@ -11,9 +11,11 @@
     "types": "compiled/src/components/scrollable-element/index.d.ts",
     "files": [
         "compiled/*",
+        "bundled/*"
     ],
     "scripts": {
         "dev": "concurrently \"astro dev\" \"pnpm dev-tailwind --watch\"",
+        "build": "pnpm build-tailwind && astro check && astro build && ./bundle-files",
         "compile": "pnpm build-tailwind-distribute && tsc -p tsconfig.distribute.json",
         "compile:watch": "node build-lit.mjs",
         "preview": "astro preview",

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# this file copies the compiled+fingerprinted files that can be loaded directly from a modern website
+mkdir -p ./bundled
+cp ./dist/_astro/scrollable-element.*.js ./bundled/scrollable-element.js
+cp ./dist/_astro/directive-helpers.*.js ./bundled/directive-helpers.js
