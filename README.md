@@ -26,5 +26,5 @@ npm add --save-peer @outerbase/scrollable-element
 ```
 
 ```html
-<script type="module" src="./node_modules/@outerbase/scrollable-element/bundled/scrollable-element.js" defer />
+<script type="module" src="./node_modules/@outerbase/scrollable-element/bundled/scrollable-element.js" defer></script>
 ```
