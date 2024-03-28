@@ -246,10 +246,10 @@ export class ScrollableElement extends ClassifiedElement {
             width: `${this.horizontalScrollSize}px`,
         }
         const scrollableClasses = {
-            'absolute bottom-0 left-0 right-0 top-0 overscroll-none': true,
-            'overflow-auto': this.axis === Axis.both,
-            'overflow-x-scroll': this.axis === Axis.horizontal,
-            'overflow-y-scroll': this.axis === Axis.vertical,
+            'absolute bottom-0 left-0 right-0 top-0': true,
+            'overflow-scroll': this.axis === Axis.both,
+            'overflow-x-scroll overflow-y-hidden': this.axis === Axis.horizontal,
+            'overflow-y-scroll overflow-x-hidden': this.axis === Axis.vertical,
         }
 
         return html`<!-- this comment exists to force the next line onto the next line -->
