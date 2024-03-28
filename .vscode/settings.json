@@ -19,12 +19,12 @@
     "files.watcherExclude": {
         "**/node_modules": true,
         "**/dist": true,
-        "**/lit-dist": true
+        "**/compiled": true
     },
     "search.exclude": {
         "**/node_modules": true,
         "**/dist": true,
-        "**/lit-dist": true
+        "**/compiled": true
     },
     "[astro]": {
         "editor.defaultFormatter": "astro-build.astro-vscode"

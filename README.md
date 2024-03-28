@@ -44,10 +44,10 @@ The results of building are observed by any other projects whom `pnpm link ...`'
 
 ```
 # one-time
-pnpm build:lit
+pnpm compile
 
 # continuously on changes
-pnpm build:lit:watch
+pnpm compile:watch
 ```
 
 ## Usage in React

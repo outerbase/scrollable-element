@@ -6,7 +6,7 @@ const pathToWatch = './src'
 
 // Function to handle the execution of the build command
 function runBuildCommand() {
-    const buildProcess = spawn('pnpm', ['build:lit'])
+    const buildProcess = spawn('pnpm', ['compile'])
 
     buildProcess.stdout.on('data', (data) => {
         console.log(`stdout: ${data}`)

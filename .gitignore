@@ -1,6 +1,7 @@
 # build output
 dist/
-lit-dist/
+compiled/
+bundled/
 scrollable-element-*.tgz
 
 # generated types
