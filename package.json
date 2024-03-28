@@ -20,13 +20,6 @@
         "dev-tailwind": "concurrently \"tailwindcss -i ./tailwind/tailwindlib.css -o ./tailwind/tailwind.css --watch\" \"node ./tailwind/css-to-js.mjs --input ./tailwind/tailwind.css --output ./tailwind/index.ts --watch\"",
         "build-tailwind": "tailwindcss -c ./tailwind.config.mjs -i ./tailwind/tailwindlib.css -o ./tailwind/tailwind.css && node ./tailwind/css-to-js.mjs --input ./tailwind/tailwind.css --output ./tailwind/index.ts",
         "build-tailwind-distribute": "tailwindcss -c ./tailwind.config.distribute.mjs -i ./tailwind/tailwindlib.css -o ./tailwind/tailwind.css && node ./tailwind/css-to-js.mjs --input ./tailwind/tailwind.css --output ./tailwind/index.ts",
-    },
-    "dependencies": {
-        "lit": "^3.1.2",
-        "lodash-es": "^4.17.21",
-        "tailwindcss": "^3.4.3",
-        "typescript": "^5.4.3",
-        "yargs": "^17.7.2"
         "prepack": "pnpm build && pnpm compile"
     },
     "devDependencies": {
@@ -39,7 +32,12 @@
         "astro": "^4.5.10",
         "chokidar": "^3.6.0",
         "concurrently": "^8.2.2",
+        "lit": "^3.1.2",
+        "lodash-es": "^4.17.21",
         "prettier": "^3.2.5",
-        "prettier-plugin-astro": "^0.13.0"
+        "prettier-plugin-astro": "^0.13.0",
+        "tailwindcss": "^3.4.3",
+        "typescript": "^5.4.3",
+        "yargs": "^17.7.2"
     }
 }
