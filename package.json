@@ -8,7 +8,7 @@
     "type": "module",
     "main": "lit-dist/src/components/scrollable-element/index.js",
     "module": "lit-dist/src/components/scrollable-element/index.js",
-    "types": "lit-dist/src/components/scrollable-element/index.jsts",
+    "types": "lit-dist/src/components/scrollable-element/index.d.ts",
     "files": [
         "lit-dist/*"
     ],
