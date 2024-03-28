@@ -4,5 +4,5 @@
         "experimentalDecorators": true,
         "useDefineForClassFields": false
     },
-    "exclude": ["lit-dist/**", "dist/**", "tailwind/css-to-js.mjs"]
+    "exclude": ["lit-dist/**", "dist/**", "tailwind/css-to-js.mjs", "bundled"]
 }
