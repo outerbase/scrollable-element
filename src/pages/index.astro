@@ -11,19 +11,27 @@ import { ScrollableElement } from '../components/scrollable-element'
 
     <body class="vh-full bg-theme-page dark:bg-theme-page-dark text-theme-text dark:text-theme-text-dark">
         <main class="m-12 pb-24">
-            <!-- <h1 class="font-bold text-xl">Static</h1>
-            <div class="dark:bg-black w-full">
-                <div class="relative h-52 px-8">
-                    <ScrollableElement client:only="lit"
-                        ><div class="h-[1200px] w-[2400px] !overscroll-x-none bg-yellow-50"></div></ScrollableElement
-                    >
-                </div>
-            </div> -->
-
-            <h1 class="font-bold text-xl mt-8">SSR w/ Hydration</h1>
             <div class="bg-white dark:bg-black">
                 <div class="relative h-52 px-8">
-                    <ScrollableElement client:load><div class="h-[1200px] w-[2400px] bg-yellow-50"></div></ScrollableElement>
+                    <h1 class="z-10 absolute top-0 left-0 text-xl black">axis unspecified</h1>
+                    <ScrollableElement client:load><div class="h-[1200px] w-[2400px] bg-blue-50"></div></ScrollableElement>
+                </div>
+                <div class="relative h-52 px-8">
+                    <h1 class="z-10 absolute top-0 left-0 text-xl black">axis=horizontal</h1>
+                    <ScrollableElement client:load .axis={'horizontal'}>
+                        <div class="h-[1200px] w-[2400px] bg-yellow-50"></div></ScrollableElement
+                    >
+                </div>
+                <div class="relative h-52 px-8">
+                    <h1 class="z-10 absolute top-0 left-0 text-xl black">axis=vertical</h1>
+                    <ScrollableElement client:load .axis={'vertical'}
+                        ><div class="h-[1200px] w-[2400px] bg-green-50"></div></ScrollableElement
+                    >
+                </div>
+                <div class="relative h-52 px-8">
+                    <h1 class="z-10 absolute top-0 left-0 text-xl black">axis=both</h1>
+
+                    <ScrollableElement client:load .axis={'both'}><div class="h-[1200px] w-[2400px] bg-red-50"></div></ScrollableElement>
                 </div>
             </div>
         </main>

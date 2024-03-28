@@ -7,9 +7,8 @@ import { createRef, ref, type Ref } from 'lit/directives/ref.js'
 import { styleMap } from 'lit/directives/style-map.js'
 import debounce from 'lodash-es/debounce.js'
 
-import { Theme } from '../../types.js'
+import { Axis, Theme } from '../../types.js'
 import { ClassifiedElement } from '../classified-element.js'
-
 @customElement('outerbase-scrollable')
 export class ScrollableElement extends ClassifiedElement {
     static override styles = [
@@ -36,6 +35,7 @@ export class ScrollableElement extends ClassifiedElement {
     @property() public bottomScrollZone: Ref<HTMLDivElement> = createRef()
     @property() public bottomScrollHandle: Ref<HTMLDivElement> = createRef()
     @property() public hasHoveringCursor = false
+    @property() public axis = Axis.both
 
     @state() protected isDragging = false
     @state() protected verticalScrollPosition = 0
@@ -55,7 +55,6 @@ export class ScrollableElement extends ClassifiedElement {
 
     constructor() {
         super()
-
         this._onScroll = this._onScroll ? debounce(this._onScroll, 10).bind(this) : this._onScroll.bind(this)
 
         this.updateScrollerSizeAndPosition = this.updateScrollerSizeAndPosition.bind(this)
@@ -68,23 +67,27 @@ export class ScrollableElement extends ClassifiedElement {
     // maintains the appearance of our scrollers (horizontal + vertical)
     private updateScrollerSizeAndPosition(_event?: Event) {
         // vertical
-        const scrollTop = this.scroller.value?.scrollTop ?? 0
-        const scrollHeight = this.scroller.value?.scrollHeight ?? 0
-        const scrollHeightCoEfficient = (this.scroller.value?.clientHeight ?? 0) / scrollHeight
+        if ([Axis.both, Axis.vertical].includes(this.axis)) {
+            const scrollTop = this.scroller.value?.scrollTop ?? 0
+            const scrollHeight = this.scroller.value?.scrollHeight ?? 0
+            const scrollHeightCoEfficient = (this.scroller.value?.clientHeight ?? 0) / scrollHeight
 
-        this.verticalScrollSize = scrollHeightCoEfficient === 1 ? 0 : (this.scroller.value?.clientHeight ?? 0) * scrollHeightCoEfficient // 0 when nothing to scroll
-        this.verticalScrollProgress = scrollTop / scrollHeight
-        this.verticalScrollPosition = this.verticalScrollProgress * (this.scroller.value?.clientHeight ?? 0)
+            this.verticalScrollSize = scrollHeightCoEfficient === 1 ? 0 : (this.scroller.value?.clientHeight ?? 0) * scrollHeightCoEfficient // 0 when nothing to scroll
+            this.verticalScrollProgress = scrollTop / scrollHeight
+            this.verticalScrollPosition = this.verticalScrollProgress * (this.scroller.value?.clientHeight ?? 0)
+        }
 
         // horizontal
-        const scrollWidth = this.scroller.value?.scrollWidth ?? 0
-        const scrollLeft = this.scroller.value?.scrollLeft ?? 0
-        const scrollWidthCoEfficient = (this.scroller.value?.clientWidth ?? 0) / scrollWidth
-        const horizontalScrollHandleWidth =
-            scrollWidthCoEfficient === 1 ? 0 : (this.scroller.value?.clientWidth ?? 0) * scrollWidthCoEfficient // 0 when nothing to scroll
-        this.horizontalScrollProgress = scrollLeft / scrollWidth
-        this.horizontalScrollSize = horizontalScrollHandleWidth
-        this.horizontalScrollPosition = this.horizontalScrollProgress * (this.scroller.value?.clientWidth ?? 0)
+        if ([Axis.both, Axis.horizontal].includes(this.axis)) {
+            const scrollWidth = this.scroller.value?.scrollWidth ?? 0
+            const scrollLeft = this.scroller.value?.scrollLeft ?? 0
+            const scrollWidthCoEfficient = (this.scroller.value?.clientWidth ?? 0) / scrollWidth
+            const horizontalScrollHandleWidth =
+                scrollWidthCoEfficient === 1 ? 0 : (this.scroller.value?.clientWidth ?? 0) * scrollWidthCoEfficient // 0 when nothing to scroll
+            this.horizontalScrollProgress = scrollLeft / scrollWidth
+            this.horizontalScrollSize = horizontalScrollHandleWidth
+            this.horizontalScrollPosition = this.horizontalScrollProgress * (this.scroller.value?.clientWidth ?? 0)
+        }
     }
 
     // trigger `onScroll` when scrolling distance >= threshold (for the sake of optimizing performance)
@@ -243,7 +246,10 @@ export class ScrollableElement extends ClassifiedElement {
             width: `${this.horizontalScrollSize}px`,
         }
         const scrollableClasses = {
-            'absolute bottom-0 left-0 right-0 top-0 overflow-auto overscroll-none': true,
+            'absolute bottom-0 left-0 right-0 top-0 overscroll-none': true,
+            'overflow-auto': this.axis === Axis.both,
+            'overflow-x-scroll': this.axis === Axis.horizontal,
+            'overflow-y-scroll': this.axis === Axis.vertical,
         }
 
         return html`<!-- this comment exists to force the next line onto the next line -->
