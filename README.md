@@ -22,7 +22,7 @@ export const ScrollableElement = createComponent({
 ## Usage on the Web
 
 ```sh
-npm add --save-dev @outerbase/scrollable-element
+npm add --save-peer @outerbase/scrollable-element
 ```
 
 ```html
