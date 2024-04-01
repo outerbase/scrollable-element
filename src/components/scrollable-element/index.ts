@@ -129,21 +129,6 @@ export class ScrollableElement extends ClassifiedElement {
         }
     }
 
-    public override disconnectedCallback(): void {
-        super.disconnectedCallback()
-
-        // remove event listeners
-        this.scroller.value?.removeEventListener('scroll', this.updateScrollerSizeAndPosition)
-        this.scroller.value?.removeEventListener('scroll', this._onScroll)
-        this.scroller.value?.removeEventListener('scrollend', this._onScroll)
-
-        this.rightScrollZone.value?.removeEventListener('wheel', this.onWheelVerticalScroller)
-        this.bottomScrollZone.value?.removeEventListener('wheel', this.onWheelHorizontalScroller)
-
-        this.bottomScrollHandle.value?.removeEventListener('mousedown', this.onHorizontalScrollerHandleMouseDown)
-        this.rightScrollHandle.value?.removeEventListener('mousedown', this.onVerticalScrollerHandleMouseDown)
-    }
-
     protected onHorizontalScrollerHandleMouseDown(mouseDownEvent: MouseEvent) {
         mouseDownEvent.preventDefault() // Prevent text selection/dragging behavior
 
@@ -167,6 +152,10 @@ export class ScrollableElement extends ClassifiedElement {
 
         document.addEventListener('mouseup', onMouseUp)
         document.addEventListener('mousemove', onMouseMove)
+    }
+
+    protected preventDefault(event: Event) {
+        event.preventDefault()
     }
 
     protected onVerticalScrollerHandleMouseDown(mouseDownEvent: MouseEvent) {
@@ -195,20 +184,45 @@ export class ScrollableElement extends ClassifiedElement {
         document.addEventListener('mousemove', onMouseMove)
     }
 
-    public override firstUpdated(changedProperties: PropertyValueMap<this>): void {
-        super.firstUpdated(changedProperties)
+    public override connectedCallback(): void {
+        super.connectedCallback()
 
-        this.scroller.value?.addEventListener('scroll', this.updateScrollerSizeAndPosition, { passive: true })
-        this.scroller.value?.addEventListener('scroll', this._onScroll, { passive: true })
-        this.scroller.value?.addEventListener('scrollend', this._onScroll, { passive: true })
+        setTimeout(() => {
+            this.scroller.value?.addEventListener('scroll', this.updateScrollerSizeAndPosition, { passive: true })
+            this.scroller.value?.addEventListener('scroll', this._onScroll, { passive: true })
+            this.scroller.value?.addEventListener('scrollend', this._onScroll, { passive: true })
 
-        this.rightScrollZone.value?.addEventListener('wheel', this.onWheelVerticalScroller, { passive: true })
-        this.bottomScrollZone.value?.addEventListener('wheel', this.onWheelHorizontalScroller, { passive: true })
+            this.rightScrollZone.value?.addEventListener('wheel', this.onWheelVerticalScroller, { passive: true })
+            this.bottomScrollZone.value?.addEventListener('wheel', this.onWheelHorizontalScroller, { passive: true })
 
-        this.bottomScrollHandle.value?.addEventListener('mousedown', this.onHorizontalScrollerHandleMouseDown)
-        this.rightScrollHandle.value?.addEventListener('mousedown', this.onVerticalScrollerHandleMouseDown)
+            this.bottomScrollHandle.value?.addEventListener('mousedown', this.onHorizontalScrollerHandleMouseDown)
+            this.rightScrollHandle.value?.addEventListener('mousedown', this.onVerticalScrollerHandleMouseDown)
 
-        this.updateScrollerSizeAndPosition()
+            this.rightScrollZone.value?.addEventListener('contextmenu', this.preventDefault)
+            this.bottomScrollZone.value?.addEventListener('contextmenu', this.preventDefault)
+            this.bottomScrollHandle.value?.addEventListener('contextmenu', this.preventDefault)
+            this.rightScrollHandle.value?.addEventListener('contextmenu', this.preventDefault)
+        }, 0)
+    }
+
+    public override disconnectedCallback(): void {
+        super.disconnectedCallback()
+
+        // remove event listeners
+        this.scroller.value?.removeEventListener('scroll', this.updateScrollerSizeAndPosition)
+        this.scroller.value?.removeEventListener('scroll', this._onScroll)
+        this.scroller.value?.removeEventListener('scrollend', this._onScroll)
+
+        this.rightScrollZone.value?.removeEventListener('wheel', this.onWheelVerticalScroller)
+        this.bottomScrollZone.value?.removeEventListener('wheel', this.onWheelHorizontalScroller)
+
+        this.bottomScrollHandle.value?.removeEventListener('mousedown', this.onHorizontalScrollerHandleMouseDown)
+        this.rightScrollHandle.value?.removeEventListener('mousedown', this.onVerticalScrollerHandleMouseDown)
+
+        this.rightScrollZone.value?.removeEventListener('contextmenu', this.preventDefault)
+        this.bottomScrollZone.value?.removeEventListener('contextmenu', this.preventDefault)
+        this.bottomScrollHandle.value?.removeEventListener('contextmenu', this.preventDefault)
+        this.rightScrollHandle.value?.removeEventListener('contextmenu', this.preventDefault)
     }
 
     public override willUpdate(changedProperties: PropertyValueMap<this>): void {
