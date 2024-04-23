@@ -6,30 +6,35 @@
         "email": "johnny@outerbase.com"
     },
     "type": "module",
-    "main": "compiled/src/components/scrollable-element/index.js",
-    "module": "compiled/src/components/scrollable-element/index.js",
-    "types": "compiled/src/components/scrollable-element/index.d.ts",
+    "main": "dist/js/src/components/scrollable-element/index.js",
+    "module": "dist/js/src/components/scrollable-element/index.js",
+    "types": "dist/js/src/components/scrollable-element/index.d.ts",
     "files": [
-        "compiled/*",
-        "bundled/*"
+        "dist/js/*",
+        "dist/web-components/scrollable-element.bundle.js"
     ],
     "scripts": {
         "dev": "concurrently \"astro dev\" \"pnpm dev-tailwind --watch\"",
         "build": "pnpm build-tailwind && astro check && astro build && ./bundle-files",
         "build:watch": "node bundle.mjs",
         "compile": "pnpm build-tailwind-distribute && tsc -p tsconfig.distribute.json",
-        "compile:watch": "node compile.mjs",
+        "compile:watch": "node ./compile-typescript-on-changes.mjs",
+        "bundle": "rollup -c ./rollup.config.js",
         "preview": "astro preview",
         "dev-tailwind": "concurrently \"tailwindcss -i ./tailwind/tailwindlib.css -o ./tailwind/tailwind.css --watch\" \"node ./tailwind/css-to-js.mjs --input ./tailwind/tailwind.css --output ./tailwind/index.ts --watch\"",
         "build-tailwind": "tailwindcss -c ./tailwind.config.mjs -i ./tailwind/tailwindlib.css -o ./tailwind/tailwind.css && node ./tailwind/css-to-js.mjs --input ./tailwind/tailwind.css --output ./tailwind/index.ts",
         "build-tailwind-distribute": "tailwindcss -c ./tailwind.config.distribute.mjs -i ./tailwind/tailwindlib.css -o ./tailwind/tailwind.css && node ./tailwind/css-to-js.mjs --input ./tailwind/tailwind.css --output ./tailwind/index.ts",
-        "prepack": "pnpm build && pnpm compile"
+        "prepack": "pnpm compile && pnpm bundle"
     },
     "devDependencies": {
         "@astrojs/check": "^0.5.10",
         "@astrojs/lit": "^4.0.1",
         "@astrojs/tailwind": "^5.1.0",
         "@lit-labs/ssr-client": "^1.1.7",
+        "@rollup/plugin-commonjs": "^25.0.7",
+        "@rollup/plugin-multi-entry": "^6.0.1",
+        "@rollup/plugin-node-resolve": "^15.2.3",
+        "@rollup/plugin-terser": "^0.4.4",
         "@types/lodash-es": "^4.17.12",
         "@types/yargs": "^17.0.32",
         "@webcomponents/template-shadowroot": "^0.2.1",
@@ -40,6 +45,7 @@
         "lodash-es": "^4.17.21",
         "prettier": "^3.2.5",
         "prettier-plugin-astro": "^0.13.0",
+        "rollup": "^4.16.2",
         "tailwindcss": "^3.4.3",
         "typescript": "^5.4.3",
         "yargs": "^17.7.2"

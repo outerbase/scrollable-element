@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Demo: ScrollableElement Bundled</title>
+
+        <!-- include 'Inter' via Google Fonts -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:400,500,600,700&display=swap" />
+
+        <!-- customize the page's styling -->
+        <style>
+            hr {
+                color: lime;
+                margin: 1rem 0;
+            }
+        </style>
+
+        <!-- load ScrollableElement components -->
+        <!-- TODO replace these with CDN values -->
+        <script src="./dist/web-components/scrollable-element.bundle.js"></script>
+    </head>
+
+    <body>
+        <outerbase-scrollable>
+            <div style="background-color: gray; height: 10000px; width: 100000px"></div>
+        </outerbase-scrollable>
+    </body>
+</html>
